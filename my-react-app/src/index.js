@@ -2,9 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import ListItem from "./list/listitem";
+// import ListItem from "./list/listitem";
 import Header from "./shared/header";
 import Footer from "./shared/footer";
+import List from "./list/list";
 
 
 
@@ -14,7 +15,7 @@ root.render(
     <Header/>
     <div className="'app-body">
     <div className="app-list">
-    <ListItem/>
+    <List/>
 
     </div>
     </div>

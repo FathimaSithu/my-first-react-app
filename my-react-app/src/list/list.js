@@ -6,8 +6,9 @@ const obj = {
     isActive: false
 };
 function List(){
-    return(<div className="app-list">
-    <ListItem obj={obj}/>
+    return(
+    <div className="app-list">
+    <ListItem title={obj.title} descr={obj.descr} isActive={obj.isActive}/>
     </div>
     )
     
