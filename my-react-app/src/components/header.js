@@ -1,7 +1,8 @@
 import React from "react";
+import "./header.css";
 function Header(){
     return(
-        <div className="'app-header'">
+        <div className="app-header">
       <span className="header-title">My first react app</span>
       <span>Home</span>
       <span>Contacts</span>
