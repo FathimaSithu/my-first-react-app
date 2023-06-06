@@ -7,10 +7,10 @@ function Label(props){
 <div className="list-label">
           <span 
           onClick={ () => {
-            props.onAction(props.isActive ? 'Active':'Non-active');
+            props.onAction(props.isActive ? 'active':'nonactive');
           }}
           className="list-label-item" style={style}>
-            {props.isActive ? 'Active' : 'Non-active'}
+            {props.isActive ? 'active' : 'nonactive'}
           </span>
         </div>
     )
