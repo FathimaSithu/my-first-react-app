@@ -1,21 +1,25 @@
 import React from "react";
 import "./tools.css";
+import AddNew from "./addnew";
 class Tools extends React.Component {
   render() {
     const { 
         children,
-        onAction
-    } = this.props;
+        onAction,
+        labelValue
+    } 
+    = this.props;
     const onlyChild = React.Children.only(children);
     const count = React.Children.count(onlyChild.props.children);
     return (
       <div className="list-tools">
         <div className="list-header">
-          <select onChange={onAction} name="status">
+          <select value = {labelValue} onChange={onAction} name="status">
             <option value="all">All</option>
             <option value="active">Active</option>
             <option value="nonactive"> Non Active</option>
           </select>
+          <AddNew/>
         </div>
 
         {children}
