@@ -3,18 +3,27 @@ import Label from "./label";
 import "./listitem.css";
 
 function ListItem(props) {
+  const{
+    title,
+    descr,
+    isActive,
+    onDelete,
+    onLabelClick
+  }=props;
   return (
     <div className="list-item">
       <hr />
       <div className="list-title">
-        <h4>{props.title} </h4>
+        <h4>{title} </h4>
+        <label onClick={onDelete}>Delete</label>
       </div>
       <div className="list-descr">
-        <p>{props.descr}</p>
+        <p>{descr}</p>
       </div>
-      <Label onAction={() => {
-        console.log('PARENT Clicked');
-      }} isActive={props.isActive} />
+      <div className="list-label">
+      <Label isActive={isActive} onAction={onLabelClick} />
+      </div>
+      
            
       <hr />
     </div>
