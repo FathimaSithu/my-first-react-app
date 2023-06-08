@@ -20,8 +20,9 @@ class AddNew extends React.Component{
     render(){
         return(
 <div className="add-new">
-    <input onChange={this.handleChange}/>
+    <input  value = {this.state.titleInput} onChange={this.handleChange}/>
     <button onClick={this.handleClick}>CLick</button>
+    <button onClick={this.handleRefresh}>Refresh</button>
 </div>
         );
     }

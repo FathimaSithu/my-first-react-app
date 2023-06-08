@@ -1,0 +1,20 @@
+[
+    {
+      "id":1,
+      "title": "Appointment in october",
+      "descr": "The patient is rescheduled to november",
+      "isActive": false
+    },
+    {
+        "id":2,
+        "title": "Appointment in november",
+        "descr": "The patient is rescheduled to december",
+        "isActive": true
+    },
+    {
+        "id":3,
+      "title": "Appointment in december",
+      "descr": "The patient is rescheduled to december NEW",
+      "isActive": false
+    }
+  ]
