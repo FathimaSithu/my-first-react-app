@@ -1,82 +1,57 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 // import ListItem from "./listitem";
 import Tools from "../components/tools";
 import SimpleList from "../list/simplelist";
+import { MyContext, MyNewContext } from "./mycontext";
+import Justinfo from "./justinfo";
+import { act } from "react-dom/test-utils";
 
-const MyContext = React.createContext();
-class HomePage extends React.Component {
-  constructor(props) {
-    super(props);
+const HomePage = () => {
+  const [data, setData] = useState([]);
+  const [activeState, setActiveState] = useState("all");
+  const [showLabel, setShowLabel] = useState(true);
 
-    this.state = {
-      data: [],
-      activeState: "all",
-      showLabel:true
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     console.log("componentDidMount");
     fetch("/data.json")
-      .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        this.setState({
-          data: data,
-        });
+      .then((response) => response.json())
+      .then((responseData) => {
+        setData(responseData);
       });
-  }
-  handleRefresh() {
-    console.log('Refresh');
-    fetch('/data2.json')
-    .then((data) => {
-      return data.json();
-    })
-    .then((data) => {
-      this.setState({
-        data:data
-      });
-    })
+  }, []);
 
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.message !== this.state.message) {
-      this.setState({
-        message: "message",
+  const handleRefresh = () => {
+    console.log("Refresh");
+    fetch("/data2.json")
+      .then((response) => response.json())
+      .then((responseData) => {
+        setData(responseData);
       });
-    }
-  }
+  };
 
-  onListChange = (evt) => {
+  const onListChange = (evt) => {
     console.log(evt.target.value);
     const value = evt.target.value;
 
-    this.setState({
-      activeState: value,
-    });
-  };
-  handleDelete = (item) => {
-    console.log("delete", item);
-    const newList = this.state.data.filter((element) => element.id !== item.id);
-    this.setState({
-      data: newList,
-    });
-  };
-  handleLabelClick = (arg) => {
-    this.setState({
-      activeState: arg,
-    });
-  };
-  handleShowLabel = (evt) => {
-this.setState({
-showLabel:evt.target.checked
-});
+    setActiveState(value);
   };
 
-  render() {
-    const { data, activeState } = this.state;
-    const newList = data.filter((item) => {
+  const handleDelete = (item) => {
+    console.log("delete", item);
+    const newList = data.filter((element) => element.id !== item.id);
+    setData(newList);
+  };
+
+  const handleLabelClick = (arg) => {
+    setActiveState(arg);
+  };
+
+  const handleShowLabel = (evt) => {
+    setShowLabel(evt.target.checked);
+  };
+
+  const newList = useMemo(() => {
+    return data.filter((item) => {
       if (activeState === "all") {
         return true;
       }
@@ -88,26 +63,39 @@ showLabel:evt.target.checked
       }
       return false;
     });
-    return (
+  }, [data, activeState]);
+
+  const memoizedValue = useMemo(() => {
+    return {
+      key: "value",
+      activeState: activeState
+    };
+  }, []);
+
+  return (
+    <div>
       <div>
-        <div>
-          <input checked ={this.state.showLabel} onChange={this.handleShowLabel} type="checkbox"></input>Show label
-        </div>
-        <MyContext.Provider value = {this.state.showLabel}>
-      <Tools labelValue={activeState} onAction={this.onListChange}>
-        <SimpleList
-          onLabelClick={this.handleLabelClick}
-          data={newList}
-          onAction={this.handleDelete}
-        />
-      </Tools>
-      </MyContext.Provider>
+        <input
+          checked={showLabel}
+          onChange={handleShowLabel}
+          type="checkbox"
+        ></input>
+        Show label
       </div>
-    );
-  }
-}
+      <MyNewContext.Provider value={100}>
+        <MyContext.Provider value={showLabel}>
+          <Tools labelValue={activeState} onAction={onListChange}>
+            <SimpleList
+              onLabelClick={handleLabelClick}
+              data={newList}
+              onAction={handleDelete}
+            />
+          </Tools>
+          <Justinfo testValue={memoizedValue} activeState={activeState} />
+        </MyContext.Provider>
+      </MyNewContext.Provider>
+    </div>
+  );
+};
 
 export default HomePage;
-export{
-  MyContext
-}

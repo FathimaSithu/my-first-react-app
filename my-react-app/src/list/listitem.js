@@ -1,5 +1,5 @@
 import React from "react";
-import Label from "./label";
+import Label2 from "./label2";
 import "./listitem.css";
 
 function ListItem(props) {
@@ -21,7 +21,7 @@ function ListItem(props) {
         <p>{descr}</p>
       </div>
       <div className="list-label">
-      <Label isActive={isActive} onAction={onLabelClick} />
+      <Label2 isActive={isActive} onAction={onLabelClick} />
       </div>
       
            
