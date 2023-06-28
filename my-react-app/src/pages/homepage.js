@@ -9,7 +9,7 @@ import { act } from "react-dom/test-utils";
 const HomePage = () => {
   const [data, setData] = useState([]);
   const [activeState, setActiveState] = useState("all");
-  const [showLabel, setShowLabel] = useState(true);
+  const [showLabel, setShowLabel] = useState(false);
 
   useEffect(() => {
     console.log("componentDidMount");
@@ -65,12 +65,12 @@ const HomePage = () => {
     });
   }, [data, activeState]);
 
-  const memoizedValue = useMemo(() => {
+  const value = useMemo(() => {
     return {
       key: "value",
       activeState: activeState
     };
-  }, []);
+  }, [activeState]);
 
   return (
     <div>
@@ -91,7 +91,7 @@ const HomePage = () => {
               onAction={handleDelete}
             />
           </Tools>
-          <Justinfo testValue={memoizedValue} activeState={activeState} />
+          <Justinfo testValue={value} activeState={activeState} />
         </MyContext.Provider>
       </MyNewContext.Provider>
     </div>

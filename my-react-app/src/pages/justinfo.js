@@ -6,7 +6,7 @@ function JustInfo(props){
     } = props;
     return(
      <div>
-        JUST INFO{showLabel}{testValue.activeStatejnki}
+        JUST INFO{showLabel} {testValue.activeState}
      </div>   
     )
 }
